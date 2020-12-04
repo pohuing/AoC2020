@@ -1,26 +1,8 @@
-requirements = ["byr","iyr","eyr","hgt","hcl","ecl","pid"]#,"cid"]
+REQUIREMENTS = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
 valids = 0
 
-passports = ""
 with open("input") as f:
-    passports = f.read()
-#     passports = """eyr:1972 cid:100
-# hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926
-#
-# iyr:2019
-# hcl:#602927 eyr:1967 hgt:170cm
-# ecl:grn pid:012533040 byr:1946
-#
-# hcl:dab227 iyr:2012
-# ecl:brn hgt:182cm pid:021572410 eyr:2020 byr:1992 cid:277
-#
-# hgt:59cm ecl:zzz
-# eyr:2038 hcl:74454a iyr:2023
-# pid:3556412378 byr:2007"""
-    passports = passports.split("\n\n")
-
-
-
+    passports = f.read().split("\n\n")
 
 for passport in passports:
     sections = {}
@@ -28,7 +10,7 @@ for passport in passports:
     pairs = passport.strip().split(" ")
     for pair in pairs:
         key, value = pair.split(":")
-        value:str = value.strip()
+        value: str = value.strip()
         #extra rules
         if key == "byr":
             if len(value) != 4:
@@ -73,10 +55,10 @@ for passport in passports:
             pass
         else:
             print(f"Not recognized token {key} in {passport}")
-    if all((requirement in sections for requirement in requirements)):
+    if all((requirement in sections for requirement in REQUIREMENTS)):
         print(f"Valid passport {sections}")
-        valids+=1
+        valids += 1
     else:
-        print(f"Invalid passport {sections} missing \n\t {set(requirements) - set(sections.keys())}")
+        print(f"Invalid passport {sections} missing \n\t {set(REQUIREMENTS) - set(sections.keys())}")
 
 print(valids)
